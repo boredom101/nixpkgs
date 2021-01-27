@@ -128,6 +128,29 @@ rec {
       # map input to ini sections
       mapAttrsToStringsSep "\n" mkSection attrsOfAttrs;
 
+  /* Generate a KDE config file from an attrset.
+   *
+   * This is essentially INI format, with internationalization built-in.
+   *
+   * generators.toKdeINI {
+   *   "Preview Image" = {
+   *     Caption = {
+   *       default = "My Caption";
+   *       fr = "Ma Légende";
+   *     };
+   *     Description = "A Description";
+   *   };
+   * }
+   *
+   *> [Preview Image]
+   *> Caption=My Caption
+   *> Caption[fr]=Ma Légende
+   *> Description=A Description
+   */
+  toKdeINI = attrs:
+    with builtins;
+    
+
   /* Generate a git-config file from an attrset.
    *
    * It has two major differences from the regular INI format:
